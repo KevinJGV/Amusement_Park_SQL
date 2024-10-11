@@ -1,5 +1,5 @@
+DELIMITER //
 -- 1. **Evento programado para actualizar el estado de las atracciones a 'En Mantenimiento' todos los lunes.**
-
 CREATE EVENT WeeklyMaintenanceUpdate
 ON SCHEDULE EVERY 1 WEEK
 STARTS '2024-10-14 00:00:00'
@@ -40,8 +40,8 @@ DO
 
 -- 5. **Evento programado para restablecer las atracciones operativas al final del día.**
 CREATE EVENT ResetAttractionStatus
-ON SCHEDULE EVERY DAY
-STARTS '2024-10-10 23:59:59'
+ON SCHEDULE EVERY 1 DAY
+STARTS '2024-10-11 23:59:59'
 DO
     UPDATE Attraction
     SET Status = 'Operativa'
