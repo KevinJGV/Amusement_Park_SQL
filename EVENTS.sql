@@ -16,19 +16,6 @@ DO
     WHERE PurchaseDate < CURDATE() - INTERVAL 1 YEAR
     AND TicketId NOT IN (SELECT TicketId FROM Visit);
 
--- 3. **Evento programado para enviar un reporte semanal de visitas a los administradores (simulación con impresión en consola).**
-CREATE EVENT WeeklyVisitorReport
-ON SCHEDULE EVERY 1 WEEK
-STARTS '2024-10-15 08:00:00'
-DO
-BEGIN
-    -- Simulación de generación de reporte con SELECT (normalmente esto sería enviado por correo o guardado en un archivo)
-    SELECT v.FirstName, v.LastName, COUNT(vis.VisitId) AS TotalVisits
-    FROM Visit vis
-    JOIN Visitor v ON vis.VisitorId = v.VisitorId
-    GROUP BY v.VisitorId;
-END //
-
 -- 4. **Evento programado para aumentar el precio de los tickets en temporada alta (cada diciembre).**
 CREATE EVENT HighSeasonTicketPriceIncrease
 ON SCHEDULE EVERY 1 YEAR
